@@ -19,6 +19,7 @@ Examples:
    * If the NY Times publishes a story on Ebola, play 'Fever'
    * Play messages when you receive SMS messages from specific people
    * Play 'Happy Birthday' on birthdays
+   * Play the bells from your phone
    * etc...
 
 Most of the above features can be scripted using IFTTT in conjunction with the PushBullet channel.
@@ -36,4 +37,6 @@ The backend, implmented in Python/Flask, does a few different things:
    * There is a REST API so you can trigger tunes from other home automation systems on your local network (e.g. motion detectors)
       
    * There is a web interface to mute the bells, and to set a mute schedule (e.g. don't play the bells at night) (IN PROGRESS)
+
+   * There is a web interface to play the bells from a phone (IN PROGRESS)
 
