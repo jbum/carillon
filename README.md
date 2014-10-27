@@ -12,7 +12,7 @@ The bells can be mounted on a christmas tree, or more permanently.  They play di
 
 Examples: 
 
-   * The bells can chime on the quarter hour, like a fancy clock.
+   * The bells can chime on the quarter hour, like a [fancy clock](http://en.wikipedia.org/wiki/Westminster_Quarters).
    * When your Nest Thermostat is set to 'Home', the bells can play "Home on the Range"
    * If your thermostat gets really cold, they can play "Baby it's cold outside"
    * Make an Ebay Sale? Play "We're in the Money"
@@ -27,7 +27,7 @@ The arduino script is set up for an Arduino using an XBee radio to receive seria
 
 The backend, implmented in Python/Flask, does a few different things:
 
-   * It can chime the bells on the quarter hour in the style of Big Ben.
+   * It can chime the bells on the quarter hour in the style of [Big Ben](http://en.wikipedia.org/wiki/Westminster_Quarters).
 
    * It listens for pushed notes (events) from the PushBullet service (which in turn, can be scripted using IFTTT).
       * PushBullet notes of the form 'tune: <melody>' are played by the chimes.
