@@ -16,7 +16,12 @@ The backend, implmented in Python/Flask, does a few different things:
 
    * It listens for pushed notes from the PushBullet service (which in turn, can be scripted using IFTTT).
       * Notes which contain a body of tune: <melody> are played by the chimes.
-      * Examples: When my Nest Thermostat is set to 'Home', it plays "Home on the Range"
-      *           When I receive money from Paypal, it plays "We're in the Money"
+      * Examples: When your Nest Thermostat is set to 'Home', it can play "Home on the Range"
+      *           When you make an EBay sale, it can play "We're in the Money"
+      *           If the NY Times publishes a story on Ebola, play 'Fever'
+      *           Play messages when you receive SMS messages from specific people
+
+   * There is a REST API so you can trigger tunes from other home automation systems (e.g. motion detectors)
       
    * There is a web interface to mute the bells, and to set a mute schedule (e.g. don't play the bells at night).
+
