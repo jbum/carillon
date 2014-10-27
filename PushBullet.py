@@ -1,6 +1,7 @@
 from Action import Action
 import json, datetime, threading
 from ws4py.client.threadedclient import WebSocketClient
+import requests
 
 class PBClient(WebSocketClient):
     def opened(self):
@@ -10,6 +11,20 @@ class PBClient(WebSocketClient):
         print "PB Closed down", code, reason
         # !! wait 15 seconds, and reopen?
 
+    def pull_pb_pushes(self):
+        url = 'https://api.pushbullet.com/v2/pushes?modified_after=' + str(self.last_pb_ts)
+        client = requests.session()
+        print "Retrieving PB Pushes"
+        r = client.get(url,headers={'Authorization':'Bearer ' + self.access_token})
+        recArray = r.json()
+        for mrec in recArray['pushes']:
+            modTS = float(mrec['modified'])
+            if modTS > self.last_pb_ts:
+                self.last_pb_ts = modTS
+                if not self.mute_pushes:
+                    print "PBPUSH",mrec['type'],mrec['title'],mrec['modified']
+                    self.pb.push_callback('pushbullet', json.dumps(mrec))
+
     def received_message(self, m):
         print "PB Received",m
         mrec = json.loads(str(m))
@@ -18,15 +33,21 @@ class PBClient(WebSocketClient):
         elif mrec['type'] == 'tickle':
             print "Tickle"
             # get latest pushes, and process them...
+            self.pull_pb_pushes()
 
-    def set_parent(self, pb):
+    def set_parent(self, pb, access_token):
         self.pb = pb
+        self.access_token = access_token
+        self.last_pb_ts = 0.0
+        self.mute_pushes = True
+        self.pull_pb_pushes()
+        self.mute_pushes = False
 
 class PBThread(threading.Thread):
     def __init__(self, access_token, parent):
        threading.Thread.__init__(self)
        self.ws = PBClient('wss://stream.pushbullet.com/websocket/' + access_token, protocols=['http-only', 'chat'])
-       self.ws.set_parent(parent)
+       self.ws.set_parent(parent, access_token)
 
     def run(self):
         try:
@@ -54,8 +75,8 @@ class PushBullet(Action):
         mrec = json.loads(data)
         if mrec['type'] == 'note':
             if 'tune:' in mrec['body']:
-                chime = mrec['body'][:5].strip()
+                chime = mrec['body'][5:].strip()
                 self.push_callback('chime', json.dumps({'tune':chime}))
             elif 'song:' in mrec['body']:
-                song = mrec['body'][:5].strip()
+                song = mrec['body'][5:].strip()
                 self.push_callback('transcribe', json.dumps({'song':song}))

@@ -7,6 +7,7 @@ class Clock(Action):
     def __init__(self, **kwargs):
         Action.__init__(self, **kwargs)
 
+        # clock settings -- set up in site.cfg, or override in local-site.cfg
         self.ring_quarters = parse_bool(kwargs.get('ring_quarters', False))
         self.timezone = kwargs.get('timezone', 'America/Los_Angeles')
         self.chimes = {
