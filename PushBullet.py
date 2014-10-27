@@ -38,6 +38,8 @@ class PBThread(threading.Thread):
 class PushBullet(Action):
     def __init__(self, **kwargs):
         Action.__init__(self, **kwargs)
+
+        # Push Bullet settings -- set up in site.cfg, or override in local-site.cfg
         self.access_token = kwargs.get('access_token', "XXX")
         self.start()
 

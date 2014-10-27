@@ -61,6 +61,14 @@ def dochime(tune):
     # post this user to the event stream...   
     return jsonify(result)
 
+@webapp.route('/dosong/<song>')
+def dosong(song):
+    result = {'success':True,'song':song}
+    push_event('transcribe', json.dumps({'song':song}))
+    # post this user to the event stream...   
+    return jsonify(result)
+
+
 @webapp.route('/<topic>')
 def navigation(topic):
     '''Topics created by the pages configuration.'''
