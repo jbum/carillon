@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="col-xs-12 col-md-9">
+    <h4>Page listing:</h4>
+    <ul>
+    {% for href, pagename in navigation.iteritems() %}
+        {% if pagename == title %}
+            <li class="active">
+        {% else %}
+            <li>
+        {% endif %}
+        <a href="{{href}}">{{pagename}}</a></li>
+    {% endfor %}
+    <ul>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,4 @@
+local-site.cfg
+*.pyc
+.DS_Store
+weblog*.txt

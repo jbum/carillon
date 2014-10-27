@@ -1,0 +1,46 @@
+body {
+    background-color: #eee;
+}
+
+header.pagetop {
+    margin-bottom: 0px;
+}
+
+div.main {
+    /* background-color: #fff; */
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+
+footer.footer {
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
+}
+
+span.submit-status {
+    display:none;
+}
+
+div.image-grid {
+    margin-bottom: 5px;
+}
+
+dt.message-fav {
+    width: 20%;
+}
+
+dd.message-fav {
+    margin-left: 25%;
+}
+
+button.sm-fav {
+    margin-left: 5px;
+}
+
+.bootstrap-switch {
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}

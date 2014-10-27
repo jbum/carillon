@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-xs-12 col-md-12">
+<h3>PushBullet</h3>
+<table id="message-log" class="table">
+    <thead>
+        <tr><th style="width: 30%;">Time</th><th>Data</th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+<br>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+// Subscribes to badges
+function sse() {
+    var event_source = new EventSource('/subscribe/pushbullet');
+    event_source.onmessage = function(e) {
+      // Add the message
+      var message = $.parseJSON(e.data);
+      console.log(message);
+      var update = "<tr>";
+      update += "<td>" + (new Date()) + "</td>";
+      update += "<td>" + e.data + "</td>";
+      update += "</tr>";
+      $('#message-log tbody').prepend(update);
+      
+      // Check the table length
+      if ($('#message-log tr').length > 6) {
+        $('#message-log tr:last').remove();
+      }
+    };
+}
+
+sse();
+</script>
+
+{% endblock %}
