@@ -31,7 +31,7 @@ The backend, implmented in Python/Flask, does a few different things:
 
    * It listens for pushed notes (events) from the PushBullet service (which in turn, can be scripted using IFTTT).
       * PushBullet notes of the form 'tune: &lt;melody&gt;' are played by the chimes.
-      * PushBullet notes of the form 'song: &ltname&gt;' are converted to the 'tune' protocol using a transcription dictionary.
+      * PushBullet notes of the form 'song: &lt;name&gt;' are converted to the 'tune' protocol using a transcription dictionary.
 
    * There is a REST API so you can trigger tunes from other home automation systems on your local network (e.g. motion detectors)
       
