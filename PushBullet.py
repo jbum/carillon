@@ -35,19 +35,19 @@ class PBClient(WebSocketClient):
             # get latest pushes, and process them...
             self.pull_pb_pushes()
 
-    def set_parent(self, pb, access_token):
+    def do_init(self, pb, access_token):
         self.pb = pb
         self.access_token = access_token
         self.last_pb_ts = 0.0
         self.mute_pushes = True
-        self.pull_pb_pushes()
+        self.pull_pb_pushes() # pull last set of pushes, so we can determine last timestamp
         self.mute_pushes = False
 
 class PBThread(threading.Thread):
     def __init__(self, access_token, parent):
        threading.Thread.__init__(self)
        self.ws = PBClient('wss://stream.pushbullet.com/websocket/' + access_token, protocols=['http-only', 'chat'])
-       self.ws.set_parent(parent, access_token)
+       self.ws.do_init(parent, access_token)
 
     def run(self):
         try:
@@ -74,9 +74,9 @@ class PushBullet(Action):
         print "PUSHBULLET RECEIVED: ", datetime.datetime.now(), data
         mrec = json.loads(data)
         if mrec['type'] == 'note':
-            if 'tune:' in mrec['body']:
+            if 'tune:' in mrec['body']: # 'tune' uses the low-level protocol which goes straight to 'chime' handler
                 chime = mrec['body'][5:].strip()
                 self.push_callback('chime', json.dumps({'tune':chime}))
-            elif 'song:' in mrec['body']:
+            elif 'song:' in mrec['body']: # 'song' is a song-title which is converted to low-level protocol by 'transcribe' handler
                 song = mrec['body'][5:].strip()
                 self.push_callback('transcribe', json.dumps({'song':song}))
