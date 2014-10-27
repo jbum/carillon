@@ -41,6 +41,7 @@ class PBClient(WebSocketClient):
         self.last_pb_ts = 0.0
         self.mute_pushes = True
         self.pull_pb_pushes() # pull last set of pushes, so we can determine last timestamp
+        print "Last PB Time stamp:",self.last_pb_ts
         self.mute_pushes = False
 
 class PBThread(threading.Thread):

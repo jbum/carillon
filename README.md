@@ -7,23 +7,32 @@ This is the Arduino code and backend server for my Arduino / XBee / Carillon pro
 
 http://www.amazon.com/Caroling-Christmas-Bells-Pre-Tuned-Musical/dp/B00DELS3RO
 
+The bells can be mounted on a christmas tree, or more permanently.  They play different tunes to announce interesting events.
+
+Examples: 
+
+   * The bells can chime on the quarter hour, like a fancy clock.
+   * When your Nest Thermostat is set to 'Home', the bells can play "Home on the Range"
+   * If your thermostat gets really cold, they can play "Baby it's cold outside"
+   * Make an Ebay Sale? Play "We're in the Money"
+   * If the NY Times publishes a story on Ebola, play 'Fever'
+   * Play messages when you receive SMS messages from specific people
+   * Play 'Happy Birthday' on birthdays
+   * etc...
+
+Most of the above features can be scripted using IFTTT in conjunction with the PushBullet channel.
+
 The arduino script is set up for an Arduino using an XBee radio to receive serial messages (although it can also work with straight serial via the USB port).  It supports a simple protocol that plays melodies on the bells, which are connected to pins 5 - 13 (Low - High pitched)
 
 The backend, implmented in Python/Flask, does a few different things:
 
-   * It chimes the bells on the quarter hour in the style of Big Ben.
+   * It can chime the bells on the quarter hour in the style of Big Ben.
 
-   * It listens for pushed notes from the PushBullet service (which in turn, can be scripted using IFTTT).
-      * Notes whose body matches 'tune: <melody>' are played by the chimes.
-      * Notes whose body mathces 'song: <name>' also work, using a transcription service, which converts to the lower-level protocol.
-      * Examples: 
-         * When your Nest Thermostat is set to 'Home', it can play "Home on the Range"
-         * When you make an EBay sale, it can play "We're in the Money"
-         * If the NY Times publishes a story on Ebola, play 'Fever'
-         * Play messages when you receive SMS messages from specific people
-         * Play 'Happy Birthday' on birthdays
+   * It listens for pushed notes (events) from the PushBullet service (which in turn, can be scripted using IFTTT).
+      * PushBullet notes of the form 'tune: <melody>' are played by the chimes.
+      * PushBullet notes of the form 'song: <name>' are converted to the 'tune' protocol using a transcription dictionary.
 
-   * There is a REST API so you can trigger tunes from other home automation systems (e.g. motion detectors)
+   * There is a REST API so you can trigger tunes from other home automation systems on your local network (e.g. motion detectors)
       
    * There is a web interface to mute the bells, and to set a mute schedule (e.g. don't play the bells at night) (IN PROGRESS)
 
