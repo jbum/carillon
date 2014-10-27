@@ -10,10 +10,11 @@ class Transcribe(Action):
         self.start()
 
         self.songs = {
-            'let it snow': 'Da 1 1 8 8 7 0 6 0 5 0 4 0 1 0 0 0',
-            'baby it\'s cold outside': 'Da 4 0 6 5 4 0 8 0 0 0 0 0 5 0 7 6 5 0 8 0 0 0 0 0',
+            'let it snow': 'Ca 1 0 1 8 0 8 7 0 0 6 0 0 5 0 0 4 0 0 1 0 0 0 0 0',
+            'baby it\'s cold outside': 'Ca 4 0 0 6 0 5 4 0 0 8 0 0 0 0 0 0 0 5 0 0 7 0 6 5 0 0 8 0 0 0 0 0 0 0',
             'we\'re in the money':'Da 4 0 6 0 0 4 5 0 6 0 0 0 0 0 0 0 4 0 6 0 0 4 5 0 6 0 0 0 0 0',
             'home on the range': 'Da 8 0 0 0 0 0 7 0 6 0 0 5 6 0 0 0 0 0 1 1 4 0 0 0 4 4 4 0 0 3 4 0 5 0',
+            'money': 'Ca 5 0 0 5 0 9 5 0 0 2 0 0 4 0 0 5 0 0 7 0 0 5 0 0 5 0 9 5 0 0 2 0 0 4 0 0 5 0 0 7 0 0 5',
             'nobody home': 'Da 1 1 6 0 6 0 6 6 6 6 6 0 6 0 0 0 0 0 6 6 0 0 0 6 5 6 0 5 0 0 0',
             'quarter hour': 'Fa 6 5 4 1 0 0 0',
             'half hour': 'Fa 4 6 5 1 0 4 5 6 4 0 0 0',
