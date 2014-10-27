@@ -30,8 +30,8 @@ The backend, implmented in Python/Flask, does a few different things:
    * It can chime the bells on the quarter hour in the style of [Big Ben](http://en.wikipedia.org/wiki/Westminster_Quarters).
 
    * It listens for pushed notes (events) from the PushBullet service (which in turn, can be scripted using IFTTT).
-      * PushBullet notes of the form 'tune: <melody>' are played by the chimes.
-      * PushBullet notes of the form 'song: <name>' are converted to the 'tune' protocol using a transcription dictionary.
+      * PushBullet notes of the form 'tune: &lt;melody&gt;' are played by the chimes.
+      * PushBullet notes of the form 'song: &ltname&gt;' are converted to the 'tune' protocol using a transcription dictionary.
 
    * There is a REST API so you can trigger tunes from other home automation systems on your local network (e.g. motion detectors)
       
