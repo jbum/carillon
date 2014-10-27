@@ -6,6 +6,7 @@ Arduino Carillon project - Jim Bumgardner 2014
 This is the Arduino code and backend server for my Arduino / XBee / Carillon project, in which I am using an Arduino to play the bells on a mass-market 9-bell christmas ornament, like this one: 
 
 http://www.amazon.com/Caroling-Christmas-Bells-Pre-Tuned-Musical/dp/B00DELS3RO
+(Note: You can find them a little cheaper on EBay.)
 
 The bells can be mounted on a christmas tree, or more permanently.  They play different tunes to announce interesting events.
 
