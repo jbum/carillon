@@ -18,6 +18,7 @@ The backend, implmented in Python/Flask, does a few different things:
       *           When you make an EBay sale, it can play "We're in the Money"
       *           If the NY Times publishes a story on Ebola, play 'Fever'
       *           Play messages when you receive SMS messages from specific people
+      *           Play 'Happy Birthday' on birthdays
 
    * There is a REST API so you can trigger tunes from other home automation systems (e.g. motion detectors)
       
