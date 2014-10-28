@@ -57,7 +57,7 @@ class Clock(Action):
             if minute < 45:
                 nextTime = now.replace(minute=15*(int(now.minute/15)+1),second=0,microsecond=0)
             else:
-                nextTime = now.replace(hour=now.hour+1,minute=0,second=0,microsecond=0)
+                nextTime = now.replace(minute=0,second=0,microsecond=0)+datetime.timedelta(hours=1)
             print "Clock Next: ",nextTime
             delta = (nextTime - now)
             print "Sleep Delta",delta
