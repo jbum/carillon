@@ -2,6 +2,7 @@ from Action import Action
 import json, datetime
 import serial
 from pytz import timezone
+import time
 
 class Chime(Action):
     def __init__(self, **kwargs):
@@ -27,6 +28,16 @@ class Chime(Action):
         else:
             return hhmm >= self.start_mute or hhmm < self.end_mute
 
+    def sendStr(self, dataStr):
+        xbee = serial.Serial(port=self.port,baudrate=self.baud)
+        if not xbee.isOpen():
+            xbee.open()
+        for ch in dataStr:
+            xbee.write(ch.encode('utf-8'))
+            time.sleep(0.01)
+            # xbee.read()
+        xbee.close()
+
     def act(self, data):
         print "CHIME RECEIVED: ", datetime.datetime.now(), data
         chime_data = json.loads(data)
@@ -36,11 +47,6 @@ class Chime(Action):
         # open serial connection and send the chime...
         # this will work with an arduino, or an xbee talking to an arduino
         if not self.is_muted():
-            xbee = serial.Serial(port=self.port,baudrate=self.baud)
-            if xbee.isOpen():
-                xbee.close()
-            xbee.open()
-            xbee.write(chime_tune)
-            xbee.close()
+            self.sendStr(chime_tune)
         else:
             print "Muted - ignoring chime"

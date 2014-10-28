@@ -1,4 +1,4 @@
-/*  XBee Carillon Driver for Arduino
+/*  XBee Carillon Driver for Arduino - Jim Bumgardner
     This provides a serial notation for playing a 9-note carillon.
 */
 
@@ -8,9 +8,9 @@
 SoftwareSerial XBee(2, 3); // RX, TX
 
 /**
-Actual Notes:  D  E  F# G  A  B  C  D  E
+Actual Notes:  D  E  F# G  A  B  C  D' E'
 In C        :  G  A  B  C  D  E  F  G' A'
-               1  2  3  4  5  6  7  8  9   
+Note Number :  1  2  3  4  5  6  7  8  9   
 
 spaces are ignored
 
@@ -26,31 +26,32 @@ In single note mode (the default), each note value gets an implicit delay.
 
 Examples: 
 # Hour chime, ala Big Ben
-Fa 4 6 5 1 0 4 5 6 4 0 6 4 5 1 0 1 5 6 4 0 0 0 0 0 0
+Ha 4 6 5 1 0 4 5 6 4 0 6 4 5 1 0 1 5 6 4 0 0 0 0 0 0
  
 # 3 o' clock chimes - one chime every 4 seconds
-Ta &481 0 0 &481 0 0 &481 0 0 
+Ha &481 0 0 &481 0 0 &481 0 0 
  
 # 1/4 hour
-Fa 6 5 4 1 0 0 0
+Ha 6 5 4 1 0 0 0
  
 # 1/2 hour
-Fa 4 6 5 1 0 4 5 6 4 0 0 0
+Ha 4 6 5 1 0 4 5 6 4 0 0 0
  
 # 3/ 4 hour
-Fa 6 4 5 1 0 1 5 6 4 0 6 5 4 1 0 0 0
+Ha 6 4 5 1 0 1 5 6 4 0 6 5 4 1 0 0 0
 
 # We're in the money
-Da 4 0 6 0 0 4 5 0 6 0 0 0 0 0 0 0 4 0 6 0 0 4 5 0 6 0 0 0 0 0
+Be 6 0 8 0 0 6 7 0 8 0 0 0 0 0 0 0 6 0 8 0 0 6 7 0 8 0 0 0 0 0
 
 # Baby it's cold outside
-Da 4 0 6 5 4 0 8 0 0 0 0 0 5 0 7 6 5 0 8 0 0 0 0 0
+Be 4 0 6 5 4 0 8 0 0 0 0 0 5 0 7 6 5 0 8 0 0 0 0 0
 
 # nobody home
-Da 1 1 6 0 6 0 6 6 6 6 6 0 6 0 0 0 0 0 6 6 0 0 0 6 5 6 0 5 0 0 0
+Cf 1 1 6 0 6 0 6 6 6 6 6 0 6 0 0 0 0 0 6 6 0 0 0 6 5 6 0 5 0 0 0
 
 # home on the range
-Da 8 0 0 0 0 0 7 0 6 0 0 5 6 0 0 0 0 0 1 1 4 0 0 0 4 4 4 0 0 3 4 0 5 0  
+Be 8 0 0 0 0 0 7 0 6 0 0 5 6 0 0 0 0 0 1 1 4 0 0 0 4 4 4 0 0 3 4 0 5 0  
+
 **/
 
 byte chordMode = 0;  // 1 = chord mode
@@ -80,7 +81,7 @@ void loop()
     if (ch == '0') {
       if (chordMode) {
         delay(50);
-        for (x = 0; x < 9; ++x) {
+        for (int x = 0; x < 9; ++x) {
           int pin = 5+x;
           digitalWrite(pin,LOW);
         }
@@ -97,7 +98,7 @@ void loop()
         digitalWrite(pin, LOW);
         delay(noteLength-50); // !! subtractoverhead
       }
-    } else if (ch >= 'A' && ch <= 'A') { // first byte of note length
+    } else if (ch >= 'A' && ch <= 'Z') { // first byte of note length
       noteLength = (ch - 'A') * 100;
     } else if (ch >= 'a' && ch <= 'z') { // second byte of note length
       noteLength += (ch - 'a') * 10;
