@@ -26,17 +26,17 @@ class Transcribe(Action):
         # In single note mode (the default), each note value gets an implicit delay.
 
         self.songs = {
-            'let it snow': 'Be 1 0 1 8 0 8 7 0 0 6 0 0 5 0 0 4 0 0 1 0 0 0 0 0',
-            'baby it\'s cold outside': 'Be 4 0 0 6 0 5 4 0 0 8 0 0 0 0 0 0 0 5 0 0 7 0 6 5 0 0 8 0 0 0 0 0 0 0',
-            'we\'re in the money':'Be 6 0 8 0 0 6 7 0 8 0 0 0 0 0 0 0 6 0 8 0 0 6 7 0 8 0 0 0 0 0',
-            'home on the range': 'Be 8 0 0 0 0 0 7 0 6 0 0 5 6 0 0 0 0 0 1 1 4 0 0 0 4 4 4 0 0 3 4 0 5 0 0 0',
-            'money': 'Bf 5 0 0 5 0 9 5 0 0 2 0 0 4 0 0 5 0 0 7 0 0 5 0 0 5 0 9 5 0 0 2 0 0 4 0 0 5 0 0 7 0 0 5',
-            'nobody home': 'Cf 1 1 6 0 6 0 6 6 6 6 6 0 6 0 0 0 0 0 6 6 0 0 0 6 5 6 0 5 0 0 0',
-            'quarter hour': 'Ha 6 5 4 1 0 0 0',
-            'half hour': 'Ha 4 6 5 1 0 4 5 6 4 0 0 0',
-            'three quarter hour': 'Ha 6 4 5 1 0 1 5 6 4 0 6 5 4 1 0 0 0',
-            'hour': 'Ha 4 6 5 1 0 4 5 6 4 0 6 4 5 1 0 1 5 6 4 0 0 0 0 0 0',
-            'bong': 'Ha &481 0 0 0 0',
+            'let it snow': 'Be101808700600500400100000',
+            'baby it\'s cold outside': 'Be4006054008000000050070650080000000',
+            'we\'re in the money':'Be608006708000000060800670800000',
+            'home on the range': 'Be800000706005600000114000444003405000',
+            'money': 'Bf5005095002004005007005005095002004005007005',
+            'nobody home': 'Cf1160606666606000006600065605000',
+            'quarter hour': 'Ha6541000',
+            'half hour': 'Ha465104564000',
+            'three quarter hour': 'Ha64510156406541000',
+            'hour': 'Ha 4651045640645101564000000',
+            'bong': '&4810000',
         }
 
     def act(self, data):

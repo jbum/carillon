@@ -34,10 +34,6 @@ class Clock(Action):
             # chime the appropriate quarter hour
             if minute == 0:
                 chime = self.chimes['hour']
-                hour = now.hour % 12
-                if hour == 0:
-                    hour = 12
-                chime += (self.chimes['bong'] * hour)
             elif self.ring_quarters:
                 if minute  == 15:
                     chime = self.chimes['1/4']
@@ -47,6 +43,12 @@ class Clock(Action):
                     chime = self.chimes['3/4']
             if chime != '':
                 self.push_callback('chime', json.dumps({'tune':chime}))
+                if minute == 0:
+                    hour = now.hour % 12
+                    if hour == 0:
+                        hour = 12
+                    chime = (self.chimes['bong'] * hour)
+                    self.push_callback('chime', json.dumps({'tune':chime}))
 
             now = datetime.datetime.now()
             now = localtz.localize(now)
