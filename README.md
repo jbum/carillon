@@ -24,7 +24,7 @@ Examples:
 
 Most of the above features can be scripted using IFTTT in conjunction with the PushBullet channel.
 
-The arduino script is set up for an Arduino using an XBee radio to receive serial messages from a server in another part of the house (although it can also work with straight serial via the USB port).  It supports a simple protocol that plays melodies on the bells, which are connected to pins 5 - 13 (Low - High pitched)
+The arduino script is set up for an Arduino using an XBee radio to receive serial messages from a server in another part of the house (an alternate version works with straight serial via the USB port).  It supports a simple protocol that plays melodies on the bells, which are connected to pins 5 - 13 (Low - High pitched)
 
 The backend, implmented in Python/Flask, does a few different things:
 

@@ -11,11 +11,11 @@ class Clock(Action):
         self.ring_quarters = parse_bool(kwargs.get('ring_quarters', False))
         self.timezone = kwargs.get('timezone', 'America/Los_Angeles')
         self.chimes = {
-            'hour':'Ka 4 6 5 1 0 4 5 6 4 0 6 4 5 1 0 1 5 6 4 0 0 0 0 0 0',
-            '1/4':'Ka 6 5 4 1 0 0 0',
-            '1/2':'Ka 4 6 5 1 0 4 5 6 4 0 0 0',
-            '3/4':'Ka 6 4 5 1 0 1 5 6 4 0 6 5 4 1 0 0 0',
-            'bong':'Ka &481 0 0 0 0',
+            'hour':'Ka4651045640645101564Ua000',
+            '1/4':'Ka6541000',
+            '1/2':'Ka465104564000',
+            '3/4':'Ka64510156406541',
+            'bong':'&48100',
         }
         self.start()
 
@@ -32,7 +32,7 @@ class Clock(Action):
             minute = now.minute
             chime = ''
             # chime the appropriate quarter hour
-            if minute == 0:
+            if minute == 16:
                 chime = self.chimes['hour']
             elif self.ring_quarters:
                 if minute  == 15:
@@ -43,7 +43,7 @@ class Clock(Action):
                     chime = self.chimes['3/4']
             if chime != '':
                 self.push_callback('chime', json.dumps({'tune':chime}))
-                if minute == 0:
+                if minute == 16:
                     hour = now.hour % 12
                     if hour == 0:
                         hour = 12

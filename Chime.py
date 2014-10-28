@@ -29,12 +29,15 @@ class Chime(Action):
             return hhmm >= self.start_mute or hhmm < self.end_mute
 
     def sendStr(self, dataStr):
+        chDelay = 50.0 / 1000
         xbee = serial.Serial(port=self.port,baudrate=self.baud)
         if not xbee.isOpen():
             xbee.open()
         for ch in dataStr:
+            if ch >= 'A' and ch <= 'Z':
+                chDelay = (ord(ch) - ord('A'))*100 / 1000.0
             xbee.write(ch.encode('utf-8'))
-            time.sleep(0.01)
+            time.sleep(chDelay if ch in '0123456789' else 0.01)
             # xbee.read()
         xbee.close()
 
