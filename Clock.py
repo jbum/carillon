@@ -32,7 +32,7 @@ class Clock(Action):
             minute = now.minute
             chime = ''
             # chime the appropriate quarter hour
-            if minute == 16:
+            if minute == 0:
                 chime = self.chimes['hour']
             elif self.ring_quarters:
                 if minute  == 15:
@@ -43,7 +43,7 @@ class Clock(Action):
                     chime = self.chimes['3/4']
             if chime != '':
                 self.push_callback('chime', json.dumps({'tune':chime}))
-                if minute == 16:
+                if minute == 0:
                     hour = now.hour % 12
                     if hour == 0:
                         hour = 12
