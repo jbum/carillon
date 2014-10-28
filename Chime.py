@@ -30,15 +30,20 @@ class Chime(Action):
 
     def sendStr(self, dataStr):
         chDelay = 50.0 / 1000
+        chordMode = False
         xbee = serial.Serial(port=self.port,baudrate=self.baud)
         if not xbee.isOpen():
             xbee.open()
         for ch in dataStr:
             if ch >= 'A' and ch <= 'Z':
                 chDelay = (ord(ch) - ord('A'))*100 / 1000.0
+            if ch == '0':
+                chordMode = False
+            elif ch == '&':
+                chordMode = True
+            useChDelay = ch == 0 or (ch in '123456789' and not chordMode)
             xbee.write(ch.encode('utf-8'))
-            time.sleep(chDelay if ch in '0123456789' else 0.01)
-            # xbee.read()
+            time.sleep(chDelay if useChDelay else 0.01)
         xbee.close()
 
     def act(self, data):
