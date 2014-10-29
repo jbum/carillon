@@ -5,7 +5,10 @@ Arduino Carillon project - Jim Bumgardner, 10/2014, based on a Flask framework b
 
 This is the Arduino code and backend server for my Arduino / XBee / Carillon project, in which I am using an Arduino to play the bells on a mass-market 9-bell christmas ornament, like this one: 
 
-http://www.amazon.com/Caroling-Christmas-Bells-Pre-Tuned-Musical/dp/B00DELS3RO
+![Caroling christmas bells](http://i.imgur.com/BScL6LR.png)
+
+[Caroling Christmas Bells on Amazon](http://www.amazon.com/exec/obidos/ASIN/B00DELS3RO/krazydad-20)
+
 (Note: These have been around since the late 80s, you can find them a little cheaper on EBay.)
 
 The bells can be mounted on a christmas tree, or more permanently.  They play different tunes to announce interesting events.
@@ -24,8 +27,7 @@ Examples:
 
 Most of the above features can be scripted using IFTTT in conjunction with the PushBullet channel.
 
-There are two Arduino scripts, one intended for use with an XBee radio which receives messages from the server in another part of the house, and
-one with a simple serial connection.  Both scripts supports a simple protocol that plays melodies on the 9 bells, which are connected to pins 5 - 13 (Low - High pitched).  The bells I have are tuned diatonically, like so:
+There are two Arduino scripts, one intended for use with an XBee radio which receives messages from the server in another part of the house, and one with a simple serial connection.  Both scripts supports a simple protocol that plays melodies on the 9 bells, which are connected to pins 5 - 13 (Low - High pitched).  The bells I have are tuned diatonically, like so:
 
 <pre>
 Actual Notes:  D  E  F# G  A  B  C  D' E'
@@ -49,3 +51,4 @@ The backend, implmented in Python/Flask, does a few different things:
 
    * There is a web interface to play the bells from a phone (IN PROGRESS)
 
+Thanks to Brandon Creighton (CStone), Jamie Robertson, Joe Hager, and Ray Scanlon.
