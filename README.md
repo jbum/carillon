@@ -27,10 +27,12 @@ Most of the above features can be scripted using IFTTT in conjunction with the P
 There are two Arduino scripts, one intended for use with an XBee radio which receives messages from the server in another part of the house, and
 one with a simple serial connection.  Both scripts supports a simple protocol that plays melodies on the 9 bells, which are connected to pins 5 - 13 (Low - High pitched).  The bells I have are tuned diatonically, like so:
 
+<pre>
 Actual Notes:  D  E  F# G  A  B  C  D' E'
 In C        :  G  A  B  C  D  E  F  G' A'
-Note Number :  1  2  3  4  5  6  7  8  9   
+Note Number :  1  2  3  4  5  6  7  8  9 
 Pin Number  :  5  6  7  8  9  10 11 12 13
+</pre>
 
 The backend, implmented in Python/Flask, does a few different things:
 
