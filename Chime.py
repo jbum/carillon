@@ -39,6 +39,8 @@ class Chime(Action):
                 chDelay = (ord(ch) - ord('A'))*100 / 1000.0
                 if ch == 'A': # never send this - it's too fast
                     ch = 'B'
+            elif ch >= 'a' and ch <= 'z':
+                chDelay += (ord(ch) - ord('a'))*10 / 1000.0
             if ch == '0':
                 chordMode = False
             elif ch == '&':
