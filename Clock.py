@@ -1,3 +1,7 @@
+# Clock.py
+# Wakes up every quarter hour and plays an appropriate chime, like a grandfather clock.  
+# The chime melodies used for each quarter are defined in site.cfg.
+
 from Action import Action
 import json, datetime, time
 from Utils import parse_bool

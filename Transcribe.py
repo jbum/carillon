@@ -1,3 +1,8 @@
+# Transcribe.py
+
+# Converts song titles to Chime protocol strings, and passes them to the chime handler.  
+# A dictionary of songs can be found in site.cfg.
+
 from Action import Action
 import json, datetime
 

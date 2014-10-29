@@ -1,3 +1,9 @@
+# Chime.py
+#    Receives chime strings, and transmits them to the Arduino/Xbee.
+#    A typical chime string looks like this: Bf1--5--4328--5--4328--5--4342  (star wars)
+#      The two letters in front set the delay, and the numbers represent pin numbers.
+#      Hyphens or 0s represent rests, and are used to extend the duration of notes.
+
 from Action import Action
 import json, datetime
 import serial

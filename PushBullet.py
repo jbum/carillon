@@ -1,3 +1,14 @@
+# PushBullet.py
+#
+# Subscribes to incoming messages from the PushBullet service (which in turn, can receive events from IFTTT, or from your laptop or phone).
+#
+# Messages of type 'note' which contain a body that begins with tune: are sent to the Chime service.
+# Messages of type 'note' which contain a body that beings with song: are sent to the Transcription service.
+# (both of the above can be created in IFTTT)
+#
+# A set of additional triggers is defined in site.cfg for matching incoming 'push' messages, 
+# which are typically seen for emails and SMS messages.
+
 from Action import Action
 import json, datetime, threading
 from ws4py.client.threadedclient import WebSocketClient

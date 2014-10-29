@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from threading import Thread, Event, Lock
 from time import sleep
-from Utils import print_exception
+import traceback
+import sys
 
 def xor_strings(s,t):
     """xor two strings together"""
@@ -25,6 +26,10 @@ def context(web_function):
         with instance.web_context:
             return web_function(*args)
     return added_context
+
+def print_exception():
+    exc_type, exc_obj, tb = sys.exc_info()
+    traceback.print_exception(exc_type, exc_obj, tb)
 
 class Action(Thread):
     __metaclass__ = ABCMeta
