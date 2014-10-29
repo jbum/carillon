@@ -2,6 +2,7 @@ from Action import Action
 import json, datetime, threading
 from ws4py.client.threadedclient import WebSocketClient
 import requests
+import json
 
 class PBClient(WebSocketClient):
     def opened(self):
@@ -28,7 +29,7 @@ class PBClient(WebSocketClient):
     def received_message(self, m):
         print "PB Received",m
         mrec = json.loads(str(m))
-        if mrec['type'] == 'note':
+        if mrec['type'] == 'note' or mrec['type'] == 'push':
             self.pb.push_callback('pushbullet', json.dumps(mrec))
         elif mrec['type'] == 'tickle':
             print "Tickle"
@@ -63,6 +64,8 @@ class PushBullet(Action):
 
         # Push Bullet settings -- set up in site.cfg, or override in local-site.cfg
         self.access_token = kwargs.get('access_token', "XXX")
+        self.triggers = json.loads(kwargs.get('triggers',"[]"))
+        print "Got Triggers: ",self.triggers
         self.start()
 
     def kickoff(self):
@@ -74,10 +77,25 @@ class PushBullet(Action):
     def act(self, data):
         print "PUSHBULLET RECEIVED: ", datetime.datetime.now(), data
         mrec = json.loads(data)
-        if mrec['type'] == 'note':
+        if mrec['type'] == 'note' and ('tune:' in mrec['body'] or 'song:' in mrec['body']):
             if 'tune:' in mrec['body']: # 'tune' uses the low-level protocol which goes straight to 'chime' handler
                 chime = mrec['body'][5:].strip()
                 self.push_callback('chime', json.dumps({'tune':chime}))
             elif 'song:' in mrec['body']: # 'song' is a song-title which is converted to low-level protocol by 'transcribe' handler
                 song = mrec['body'][5:].strip()
                 self.push_callback('transcribe', json.dumps({'song':song}))
+        else:
+            # triggers = [{"song": "glissando", "type": "push", "contains": "Web Tools"}, 
+            #             {"song": "darkside", "type": "push", "contains": "Demo Update"}]
+            for trig in self.triggers:
+                if mrec['type'] == trig['type']:
+                    gotMatch = False
+                    if mrec['type'] == 'push':
+                        if 'body' in mrec['push'] and 'contains' in trig and trig['contains'].lower() in (mrec['push']['body'] + ' ' + mrec['push']['title']).lower():
+                            gotMatch = True
+                    if gotMatch:
+                        if 'song' in trig:
+                            self.push_callback('transcribe', json.dumps({'song':trig['song']}))
+                        elif 'tune' in trig:
+                            self.push_callback('chime', json.dumps({'tune':trig['tune']}))
+
