@@ -1,7 +1,9 @@
 # Chime.py
 #    Receives chime strings, and transmits them to the Arduino/Xbee.
 #    A typical chime string looks like this: Bf1--5--4328--5--4328--5--4342  (star wars)
-#      The two letters in front set the delay, and the numbers represent note numbers (1 = pin 5, 2 = pin 6 etc).
+#      The two letters in front set the duration of each note in milliseconds 
+#        (Uppercase letter is 100s of milliseconds and lowercase letter is 10s of milliseconds   Bf = 150 milliseconds)
+#      The numbers represent note numbers (1 = pin 5, 2 = pin 6 etc).
 #      Hyphens or 0s represent rests, and are used to extend the duration of notes.
 
 from Action import Action
@@ -37,8 +39,8 @@ class Chime(Action):
     # not as simple as I would have liked, but for the Arduino/XBee, I have to slow down transmission so I don't overrun the buffer
     # this parses the protocol as it sends, and uses the same delays that are used in playback
     def sendStr(self, dataStr): 
-        dataStr = dataStr.replace('-','0')
-        chDelay = 50.0 / 1000
+        dataStr = dataStr.replace('-','0') # convert hyphens to 0s
+        chDelay = 50.0 / 1000 # default delay
         chordMode = False
         xbee = serial.Serial(port=self.port,baudrate=self.baud)
         if not xbee.isOpen():
