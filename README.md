@@ -1,7 +1,7 @@
 carillon
 ========
 
-Arduino Carillon project - Jim Bumgardner 2014
+Arduino Carillon project - Jim Bumgardner, 10/2014, based on a Flask framework by Ray Scanlon.
 
 This is the Arduino code and backend server for my Arduino / XBee / Carillon project, in which I am using an Arduino to play the bells on a mass-market 9-bell christmas ornament, like this one: 
 
