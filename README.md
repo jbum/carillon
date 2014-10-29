@@ -15,7 +15,7 @@ Examples:
    * The bells can chime on the quarter hour, like a [fancy clock](http://en.wikipedia.org/wiki/Westminster_Quarters).
    * When your Nest Thermostat is set to 'Home', the bells can play "Home on the Range"
    * If your thermostat gets really cold, they can play "Baby it's cold outside"
-   * Make an Ebay Sale? Play "We're in the Money"
+   * Make an EBay Sale? -- play "We're in the Money"
    * If the NY Times publishes a story on Ebola, play 'Fever'
    * Play messages when you receive SMS messages from specific people
    * Play 'Happy Birthday' on birthdays
@@ -24,7 +24,13 @@ Examples:
 
 Most of the above features can be scripted using IFTTT in conjunction with the PushBullet channel.
 
-The arduino script is set up for an Arduino using an XBee radio to receive serial messages from a server in another part of the house (an alternate version works with straight serial via the USB port).  It supports a simple protocol that plays melodies on the bells, which are connected to pins 5 - 13 (Low - High pitched)
+There are two Arduino scripts, one intended for use with an XBee radio which receives messages from the server in another part of the house, and
+one with a simple serial connection.  Both scripts supports a simple protocol that plays melodies on the 9 bells, which are connected to pins 5 - 13 (Low - High pitched).  The bells I have are tuned diatonically, like so:
+
+Actual Notes:  D  E  F# G  A  B  C  D' E'
+In C        :  G  A  B  C  D  E  F  G' A'
+Note Number :  1  2  3  4  5  6  7  8  9   
+Pin Number  :  5  6  7  8  9  10 11 12 13
 
 The backend, implmented in Python/Flask, does a few different things:
 
@@ -33,6 +39,7 @@ The backend, implmented in Python/Flask, does a few different things:
    * It listens for pushed notes (events) from the PushBullet service (which in turn, can be scripted using IFTTT).
       * PushBullet notes of the form 'tune: &lt;melody&gt;' are played by the chimes.
       * PushBullet notes of the form 'song: &lt;name&gt;' are converted to the 'tune' protocol using a transcription dictionary.
+      * Other incoming PushBullet events can trigger chimes using a pattern-matching table in the site.cfg file.
 
    * There is a REST API so you can trigger tunes from other home automation systems on your local network (e.g. motion detectors)
       
