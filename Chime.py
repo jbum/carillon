@@ -29,6 +29,7 @@ class Chime(Action):
             return hhmm >= self.start_mute or hhmm < self.end_mute
 
     def sendStr(self, dataStr): # not as simple as I would have liked, but for the Arduino/XBee, I have to slow down transmission so I don't overrun the buffer
+        dataStr = dataStr.replace('-','0')
         chDelay = 50.0 / 1000   # this mimics the delays in how the protocol is played, so we don't get too far ahead.
         chordMode = False
         xbee = serial.Serial(port=self.port,baudrate=self.baud)

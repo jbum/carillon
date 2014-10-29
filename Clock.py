@@ -10,13 +10,9 @@ class Clock(Action):
         # clock settings -- set up in site.cfg, or override in local-site.cfg
         self.ring_quarters = parse_bool(kwargs.get('ring_quarters', False))
         self.timezone = kwargs.get('timezone', 'America/Los_Angeles')
-        self.chimes = {
-            'hour':'Ka4651045640645101564Ua000',
-            '1/4':'Ka6541000',
-            '1/2':'Ka465104564000',
-            '3/4':'Ka64510156406541',
-            'bong':'&48100',
-        }
+        self.chimes = json.loads(kwargs.get('chimes',"{}"))
+        print "Got Chimes", self.chimes
+
         self.start()
 
     def kickoff(self):
