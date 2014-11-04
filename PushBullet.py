@@ -14,6 +14,7 @@ import json, datetime, threading
 from ws4py.client.threadedclient import WebSocketClient
 import requests
 import json
+import calendar, time
 
 class PBClient(WebSocketClient):
     def opened(self):
@@ -50,7 +51,7 @@ class PBClient(WebSocketClient):
     def do_init(self, pb, access_token):
         self.pb = pb
         self.access_token = access_token
-        self.last_pb_ts = 0.0
+        self.last_pb_ts = calendar.timegm(time.gmtime()) - 60*60*24
         self.mute_pushes = True
         self.pull_pb_pushes() # pull last set of pushes, so we can determine last timestamp
         print "Last PB Time stamp:",self.last_pb_ts
