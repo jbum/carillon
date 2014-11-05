@@ -245,6 +245,10 @@ for topic in pages:
     if actions.get(topic, None):
         actions[topic].kickoff()
 
+for topic in pages:
+    if actions.get(topic, None):
+        actions[topic].start_second_thread()
+
 if __name__ == "__main__":
     host = config.get('website', 'host')
     port = config.getint('website', 'port')

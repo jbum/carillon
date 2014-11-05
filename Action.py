@@ -31,6 +31,15 @@ def print_exception():
     exc_type, exc_obj, tb = sys.exc_info()
     traceback.print_exception(exc_type, exc_obj, tb)
 
+
+class PBThread2(Thread):
+    def __init__(self, target):
+       Thread.__init__(self)
+       self.target = target
+
+    def run(self):
+        self.target.kickoff_async()
+
 class Action(Thread):
     __metaclass__ = ABCMeta
 
@@ -64,6 +73,10 @@ class Action(Thread):
     def stop(self):
         self._stop.set()
 
+    def start_second_thread(self):
+        pbt2 = PBThread2(self)
+        pbt2.start()
+
     @abstractmethod
     def act(self, data):
         '''Called each time a message is ready.'''
@@ -73,13 +86,12 @@ class Action(Thread):
         '''Called once just as the server stats up.'''
         pass
 
-    def kickoff_thread(self):
-        '''Called once just as the thread starts running.'''
+    def kickoff_async(self):
+        '''Called for modules that need a 2nd thread.'''
         pass
 
     def run(self):
         '''Threaded, runs actions on each message.'''
-        self.kickoff_thread()
         while not self.stopped():
             sleep(0.25)
             if len(self.message_list) > 0:

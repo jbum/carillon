@@ -10,7 +10,7 @@
 # which are typically seen for emails and SMS messages.
 
 from Action import Action
-import json, datetime, threading
+import json, datetime
 from ws4py.client.threadedclient import WebSocketClient
 import requests
 import json
@@ -57,19 +57,6 @@ class PBClient(WebSocketClient):
         print "Last PB Time stamp:",self.last_pb_ts
         self.mute_pushes = False
 
-class PBThread(threading.Thread):
-    def __init__(self, access_token, parent):
-       threading.Thread.__init__(self)
-       self.ws = PBClient('wss://stream.pushbullet.com/websocket/' + access_token, protocols=['http-only', 'chat'])
-       self.ws.do_init(parent, access_token)
-
-    def run(self):
-        try:
-            self.ws.connect()
-            self.ws.run_forever()
-        except KeyboardInterrupt:
-            self.ws.close()
-
 class PushBullet(Action):
     def __init__(self, **kwargs):
         Action.__init__(self, **kwargs)
@@ -80,11 +67,14 @@ class PushBullet(Action):
         print "Got Triggers: ",self.triggers
         self.start()
 
-    def kickoff(self):
-        # kick off thread...
-        self.pbThread = PBThread(self.access_token, self)
-        self.pbThread.daemon = True
-        self.pbThread.start()
+    def kickoff_async(self):
+        ws = PBClient('wss://stream.pushbullet.com/websocket/' + self.access_token, protocols=['http-only', 'chat'])
+        ws.do_init(self, self.access_token)
+        try:
+            ws.connect()
+            ws.run_forever()
+        except KeyboardInterrupt:
+            ws.close()
 
     def act(self, data):
         print "PUSHBULLET RECEIVED: ", datetime.datetime.now(), data
