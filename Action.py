@@ -68,8 +68,6 @@ class Action(Thread):
     def start_second_thread(self):
         t2 = Thread(target=self.kickoff_async)
         t2.start()
-        # pbt2 = SecondaryThread(self)
-        # pbt2.start()
 
     @abstractmethod
     def act(self, data):
