@@ -32,14 +32,6 @@ def print_exception():
     traceback.print_exception(exc_type, exc_obj, tb)
 
 
-class PBThread2(Thread):
-    def __init__(self, target):
-       Thread.__init__(self)
-       self.target = target
-
-    def run(self):
-        self.target.kickoff_async()
-
 class Action(Thread):
     __metaclass__ = ABCMeta
 
@@ -74,8 +66,10 @@ class Action(Thread):
         self._stop.set()
 
     def start_second_thread(self):
-        pbt2 = PBThread2(self)
-        pbt2.start()
+        t2 = Thread(target=self.kickoff_async)
+        t2.start()
+        # pbt2 = SecondaryThread(self)
+        # pbt2.start()
 
     @abstractmethod
     def act(self, data):
