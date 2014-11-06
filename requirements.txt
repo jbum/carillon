@@ -1,2 +1,6 @@
 flask
 ws4py
+gevent
+pyserial
+requests
+
