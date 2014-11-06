@@ -67,6 +67,7 @@ class Action(Thread):
 
     def start_second_thread(self):
         t2 = Thread(target=self.kickoff_async)
+        t2.daemon = True
         t2.start()
 
     @abstractmethod
