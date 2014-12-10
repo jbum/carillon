@@ -13,9 +13,12 @@ class Clock(Action):
 
         # clock settings -- set up in site.cfg, or override in local-site.cfg
         self.ring_quarters = parse_bool(kwargs.get('ring_quarters', False))
+        self.xmas_mode = parse_bool(kwargs.get('xmas_mode', False))
         self.timezone = kwargs.get('timezone', 'America/Los_Angeles')
         self.chimes = json.loads(kwargs.get('chimes',"{}"))
-        print "Got Chimes", self.chimes
+        self.xmas_hours =  json.loads(kwargs.get('xmas_hours',"[]"))
+        print "Got chimes", self.chimes
+        print "Got xmas_hours", self.xmas_hours
 
         self.start()
 
@@ -31,9 +34,13 @@ class Clock(Action):
 
             minute = now.minute
             chime = ''
+            song = ''
             # chime the appropriate quarter hour
             if minute == 0:
-                chime = self.chimes['hour']
+                if self.xmas_mode:
+                    song = self.xmas_hours[now.hour % len(self.xmas_hours)]
+                else:
+                    chime = self.chimes['hour']
             elif self.ring_quarters:
                 if minute  == 15:
                     chime = self.chimes['1/4']
@@ -49,6 +56,8 @@ class Clock(Action):
                         hour = 12
                     chime = (self.chimes['bong'] * hour)
                     self.push_callback('chime', json.dumps({'tune':chime}))
+            elif song != '':
+                self.push_callback('transcribe', json.dumps({'song':song}))
 
             now = datetime.datetime.now()
             now = localtz.localize(now)
