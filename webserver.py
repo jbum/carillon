@@ -64,6 +64,7 @@ def dochime(tune):
 @webapp.route('/dosong/<song>')
 def dosong(song):
     result = {'success':True,'song':song}
+    song = re.sub('\+',' ',song)
     push_event('transcribe', json.dumps({'song':song}))
     # post this user to the event stream...   
     return jsonify(result)

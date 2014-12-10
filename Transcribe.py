@@ -24,4 +24,6 @@ class Transcribe(Action):
             print "Playing song: ",song
             chime = self.songs[song]
             self.push_callback('chime', json.dumps({'tune':chime}))
+        else:
+        	print "Can't find song: ", song
 
